@@ -1,13 +1,20 @@
 class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
-        l, r = 0, 1
-        maxP = 0
+    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        
 
-        while r < len(prices):
-            if prices[l] < prices[r]:
-                profit = prices[r] - prices[l]
-                maxP = max(maxP, profit)
-            else:
-                l = r
-            r += 1
-        return maxP
+        window = set()
+        L = 0
+
+        for R in range(len(nums)):
+            if R - L > k:
+                window.remove(nums[L])
+                L += 1
+            
+            if nums[R] in window:
+                return True
+
+
+            window.add(nums[R])
+
+
+        return False
